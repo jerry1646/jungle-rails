@@ -5,8 +5,43 @@
   </header>
 
   <div class="order-summary jumbotron">
-    <h4>Thank you for your order!</h4>
+    <h3>Thank you for your order!</h3>
+    <h4>Please see details of your order below</h4>
   </div>
+
+  <div class="panel panel-default products">
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Item Price</th>
+          <th>Qty</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each_index do |i| %>
+          <%= render 'item', product:@items[i], quantity:@item_quantities[i] %>
+        <% end %>
+        <tr>
+          <td></td>
+          <td>
+            <strong>Email Associated with Credit Card: </strong>
+            <%= @order.email %>
+          </td>
+          <td colspan="3">
+            <strong>Total: </strong>
+            <%= @total_price/100 %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+
+
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
