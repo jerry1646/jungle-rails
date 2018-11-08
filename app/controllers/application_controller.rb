@@ -20,6 +20,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :cart_subtotal_cents
 
+  def current_user
+    if session[:user_id]
+      @current_user ||=User.find(session[:user_id])
+    end
+  end
+  helper_method :current_user
 
   def update_cart(new_cart)
     cookies[:cart] = {
