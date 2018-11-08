@@ -1,7 +1,24 @@
 class OrdersController < ApplicationController
 
   def show
+    @item_quantities = []
+    @total_price = 0.0
+
     @order = Order.find(params[:id])
+    # @order = Order.find(3)
+
+    @line_items = @order.line_items
+    item_ids = @line_items.map do |line_item|
+      @item_quantities.push(line_item.quantity)
+      line_item.product_id
+    end
+    @items = Product.all.find(item_ids)
+
+    @items.each_index do |i|
+      @total_price += @items[i].price_cents * @item_quantities[i]
+      puts @total_price
+    end
+
   end
 
   def create
