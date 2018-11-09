@@ -1,14 +1,11 @@
 class OrdersController < ApplicationController
 
   def show
-    @item_quantities = []
+    get_detailed_order(params[:id])
 
-    @order = Order.find(params[:id])
-    @line_items = @order.line_items
+    @current_user = User.find(session[:user_id])
 
-    @items = get_items_from_order(@line_items, @item_quantities)
-    @total_price = get_total_price(@items, @item_quantities)
-
+    OrderMailer.order_email([@current_user, @order, @line_items, @items, @item_quantities]).deliver_now
   end
 
   def create
@@ -78,4 +75,14 @@ class OrdersController < ApplicationController
     end
     return total_price
   end
+
+  def get_detailed_order(order_id)
+    @item_quantities = []
+
+    @order = Order.find(order_id)
+    @line_items = @order.line_items
+    @items = get_items_from_order(@line_items, @item_quantities)
+    @total_price = get_total_price(@items, @item_quantities)
+  end
+
 end
