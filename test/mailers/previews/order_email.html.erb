@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello <%= @user.name %>, here are the details of your recent order: </h1>
+    <hr>
+    <p>Item Info Goes Here</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Item Price</th>
+          <th>Qty</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each_index do |i| %>
+          <tr>
+            <td>
+              <%= image_tag @items[i].image.tiny %>
+            </td>
+            <td>
+              <h4><%= @items[i].name %></h4>
+              <br>
+              <p><%= @items[i].description %></p>
+            </td>
+            <td>
+              <%= @items[i].price %>
+            </td>
+            <td>
+              <%= @items[i].price * @item_quantities[i] %>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td></td>
+          <td>
+            <strong>Email Associated with Purchase: </strong>
+            <%= @order.email %>
+          </td>
+          <td colspan="2">
+            <strong>Total: </strong>
+            <%= @total_price/100 %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+    <p>Thanks for ordering with Jungle and we hope to see you again soon!</p>
+  </body>
+</html>

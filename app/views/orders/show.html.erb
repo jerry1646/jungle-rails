@@ -27,12 +27,12 @@
         <tr>
           <td></td>
           <td>
-            <strong>Email Associated with Credit Card: </strong>
+            <strong>Email Associated with Purchase: </strong>
             <%= @order.email %>
           </td>
           <td colspan="3">
             <strong>Total: </strong>
-            <%= @total_price/100 %>
+            <%= @order.total_cents/100 %>
           </td>
         </tr>
       </tbody>
