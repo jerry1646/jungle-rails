@@ -35,4 +35,9 @@ class ApplicationController < ActionController::Base
     cookies[:cart]
   end
 
+  def need_login
+    if !session[:user_id]
+      redirect_to login_path
+    end
+  end
 end

@@ -134,3 +134,56 @@ cat3.products.create!({
 
 
 puts "DONE!"
+
+
+## Users
+puts "Making fake users"
+use1 = User.find_or_create_by(first_name: 'Bob', last_name: 'Robert', email: 'bob.robert@example.com', password_digest: 'abc')
+use2 = User.find_or_create_by(first_name: 'Andy', last_name: 'Green', email: 'andy.green@example.com', password_digest: 'abc')
+use3 = User.find_or_create_by(first_name: 'Chris', last_name: 'Pietrobin', email: 'chris.p@example.com', password_digest: 'abc')
+use4 = User.find_or_create_by(first_name: 'Grant', last_name: 'Orc', email: 'g.orc@example.com', password_digest: 'abc')
+puts 'DONE!'
+
+## COMMENTS
+Comment.destroy_all
+
+puts "Finding products & users to seed comments on"
+
+pro1 = Product.find(1)
+pro2 = Product.find(2)
+pro3 = Product.find(3)
+
+puts "Generating comments"
+
+use1.comments.create!({
+  description: 'This is good! lovin it',
+  rating: 5,
+  product: pro1
+})
+use1.comments.create!({
+  description: 'Okay quality',
+  rating: 4,
+  product: pro2
+})
+use1.comments.create!({
+  description: 'Meh',
+  rating: 3,
+  product: pro3
+})
+use2.comments.create!({
+  description: 'This is good! lovin it',
+  rating: 5,
+  product: pro1
+})
+use2.comments.create!({
+  description: 'My husband likes it',
+  rating: 4,
+  product: pro3
+})
+use3.comments.create!({
+  description: 'Yoooooo this sucks dont buy',
+  rating: 1,
+  product: pro3
+})
+
+puts "DONE"
