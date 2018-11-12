@@ -9,8 +9,9 @@
     <em><%= comment.rating %>/5</em>
   </td>
   <td>
-    <% if user.email == comment.user.email %>
+    <% if user && user.email == comment.user.email %>
     <%= link_to fa_icon('trash'), product_comment_path( :product_id => product_id, :id => comment.id ), class: 'btn btn-sm btn-danger', method: :delete, data:{ confirm: "Are you sure?"} %>
     <% end %>
+
   </td>
 </tr>
