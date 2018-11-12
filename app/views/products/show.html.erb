@@ -14,6 +14,7 @@
 
       <div class="col-sm-8">
         <dl class="dl-horizontal">
+          <h4>Product Details: </h4>
           <dt>Name</dt>
           <dd><%= @product.name %></dd>
           <dt>Description</dt>
@@ -22,10 +23,43 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+          <br>
+          <h4>Customer Comments:</h4>
+          <dt></dt>
+          <dd></dd>
+          <dd>
+          <% if @comments.length > 0 %>
+            <table class="table">
+              <thead>
+                <th>Customer</th>
+                <th>Review</th>
+                <th>Rating</th>
+                <th></th>
+              </thead>
+              <tbody>
+                <% @comments.each do |comment| %>
+                  <%= render 'comment', comment: comment, user: current_user, product_id: @product.id %>
+                <% end %>
+              </tbody>
+            </table>
+          </dd>
+          <% else %>
+          <dd><em>No one has commented on this item yet</em></dd>
+          <% end %>
         </dl>
-      </div>
     </div>
 
+    </div>
+    <br>
+
+
   </article>
+  <% if current_user %>
+    <%= render 'comment_form', product_id: @product.id %>
+  <% else %>
+    <br>
+    <br>
+    <p><em>Please login to leave a comment</em></p>
+  <% end %>
 
 </section>

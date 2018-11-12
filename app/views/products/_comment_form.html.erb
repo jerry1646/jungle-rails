@@ -1,0 +1,18 @@
+<article class="comment-form">
+  <header>
+    <h3>Leave a comment:</h3>
+  </header>
+  <br>
+  <%= form_for :comment, :url => "/products/#{product_id}/comments" do |f| %>
+    <div class="form-group">
+      <%= f.text_area :description, class: 'form-control'%>
+    </div>
+    <div class="form-group">
+      <%= f.label :rating %>
+      <%= f.select :rating, [1,2,3,4,5] %>
+    </div>
+    <%= f.submit 'Submit Comment', class: 'btn btn-primary'%>
+  <% end %>
+  </div>
+
+</article>
