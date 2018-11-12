@@ -12,8 +12,22 @@ class User < ActiveRecord::Base
       length: { maximum: 50 }
   validates :email,
       presence: true,
-      format: { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}, length: { maximum:60 }
-  validates :password_digest,
+      format: { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}, length: { maximum:60 },
+      uniqueness: true
+  validates :password,
+      presence: true,
+      length: {minimum: 3}
+  validates :password_confirmation,
       presence: true
+
+  def self.authenticate_with_credentials(email, password)
+    user = User.find_by(email: email.strip.downcase)
+    if user && user.authenticate(password)
+      return user
+    else
+      return nil
+    end
+  end
+
 
 end
